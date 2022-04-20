@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
   app = express()
   port = process.env.PORT || 3000;
   const uri = 'mongodb://mongo:27017/api';
-  CovidTravel = require('./models/covidTravelModels')
+  const covidTravel = require('./models/covidTravelModels')
 
   // mongoose instance connection url connection
   mongoose.connect(uri, {
@@ -25,3 +25,5 @@ res.status(404).send({url: req.originalUrl + ' not found'})
 
 app.listen(port);
 console.log('CovidTravel RESTful API server started on: ' + port);
+
+module.exports = app;
