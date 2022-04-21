@@ -8,11 +8,12 @@ country_code: {
   },
 
 value: {
-    type: [{
-        type: String,
-        enum: ['true', 'false']
-      }],
-      default: ['false']
+    type: String,
+    // type: [{
+    //     type: String,
+    //     enum: ['true', 'false']
+    //   }],
+    //   default: ['false']
   },
 
 valid_from: {
@@ -25,4 +26,5 @@ valid_to: {
     default: Date.now
   }
 });
-module.exports = mongoose.model('CovidTravel', CovidTravelSchema);
+ const CovidTravel = mongoose.model('CovidTravel', CovidTravelSchema);
+ module.exports = CovidTravel

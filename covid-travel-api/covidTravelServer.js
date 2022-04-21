@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
   app = express()
   port = process.env.PORT || 3000;
   const uri = 'mongodb://mongo:27017/api';
-  const covidTravel = require('./models/covidTravelModels')
+  const CovidTravel = require('./models/covidTravelModels')
 
   // mongoose instance connection url connection
   mongoose.connect(uri, {
