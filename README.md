@@ -18,7 +18,7 @@ git clone https://github.com/leKg1/CovidTravel-Data-on-Chainlink.git
 ## Usage:
 - 1. Start server:
 
-     Make sure you are in `covid-travel-api` folder and run:
+     Make sure you are in the main folder and run:
 ```bash
 docker-compose up  
 ```
