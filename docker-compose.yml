@@ -4,14 +4,19 @@ services:
     container_name: api
     build: .
     ports:
-      - '80:3000'
+      - '3000:3000'
+    volumes:
+      - ./covid-travel-api:/usr/src/app
     external_links:
       - mongo
     depends_on:
       - mongo
+    restart: always
     
   mongo:
     container_name: mongo
     image: mongo:5.0.7
     ports:
       - "27017:27017"
+    expose:
+      - "27017"
