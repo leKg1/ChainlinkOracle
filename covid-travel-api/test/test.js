@@ -38,24 +38,24 @@ describe('CovidTravels', () => {
               country_code: "ru",
               value: "True",
               valid_from: new Date(2021, 06, 02),
-              valid_to: new Date(2022, 08, 04)
+              valid_to: new Date(2021, 08, 04)
           }, 
           {
               country_code: "de",
               value: "True",
               valid_from: new Date(2021, 04, 02),
-              valid_to: new Date(2022, 05, 04)
+              valid_to: new Date(2021, 05, 04)
           },
           {
               country_code: "ru",
               value: "True",
-              valid_from: new Date(2021, 05, 14),
+              valid_from: new Date(2022, 05, 14),
               valid_to: new Date(2022, 06, 04)
           }, 
           {
               country_code: "de",
               value: "True",
-              valid_from: new Date(2021, 07, 03),
+              valid_from: new Date(2022, 07, 03),
               valid_to: new Date(2022, 07, 04)
           }
         ]
@@ -78,27 +78,43 @@ describe('CovidTravels', () => {
   */
 
     it('it should GET a filtered covidTravel info', (done) => {
-        let travel_date = "2022-05-01T19:00:00Z"
+        let travel_date1 = "2021-05-01T19:00:00Z"
+        let travel_date2 = "2022-02-01T19:00:00Z"
+        let travel_date3 = "2021-08-01T19:00:00Z"
+        let travel_date4 = "2021-04-01T19:00:00Z"
         chai.request('http://localhost:3000')
-              .get(`/covidTravel?country_code=de&travel_date=${travel_date}`)
-              .end((err, res) => {
-                  res.should.have.status(200);
-                  expect(res.body[1]).to.deep.include({country_code: "de"});
-                  expect(res.body[1].valid_from).to.equal("2021-08-02T19:00:00.000Z");
-                  expect(res.body.length).to.equal(2)
-            });
-
-        chai.request('http://localhost:3000')
-              .get(`/covidTravel?country_code=de&travel_date=${travel_date}`)
+              .get(`/covidTravel?country_code=de&travel_date=${travel_date1}`)
               .end((err, res) => {
                   res.should.have.status(200);
                   expect(res.body[0]).to.deep.include({country_code: "de"});
                   expect(res.body[0].valid_from).to.equal("2021-05-01T19:00:00.000Z");
-                  expect(res.body.length).to.equal(2)
+                  expect(res.body.length).to.equal(1)
             });
 
         chai.request('http://localhost:3000')
-              .get(`/covidTravel?country_code=ru&travel_date=${travel_date}`)
+            .get(`/covidTravel?country_code=de&travel_date=${travel_date3}`)
+            .end((err, res) => {
+                res.should.have.status(200);
+                expect(res.body.length).to.equal(0)
+        });
+
+        chai.request('http://localhost:3000')
+            .get(`/covidTravel?country_code=ru&travel_date=${travel_date4}`)
+            .end((err, res) => {
+                res.should.have.status(200);
+                expect(res.body.length).to.equal(0)
+        });
+        
+        chai.request('http://localhost:3000')
+              .get(`/covidTravel?country_code=de&travel_date=${travel_date2}`)
+              .end((err, res) => {
+                  expect(res.body[0]).to.deep.include({country_code: "de"});
+                  expect(res.body[0].valid_from).to.equal("2021-05-01T19:00:00.000Z");
+                  expect(res.body.length).to.equal(1)
+            });
+
+        chai.request('http://localhost:3000')
+              .get(`/covidTravel?country_code=ru&travel_date=${travel_date1}`)
               .end((err, res) => {
                   res.should.have.status(200);
                   expect(res.body[0]).to.deep.include({country_code: "ru"});
@@ -107,10 +123,8 @@ describe('CovidTravels', () => {
             });
 
         chai.request('http://localhost:3000')
-              .get(`/covidTravel?country_code=ru&travel_date=${travel_date}`)
+              .get(`/covidTravel?country_code=ru&travel_date=${travel_date2}`)
               .end((err, res) => {
-                  // console.log("responseBody", res)
-                  res.should.have.status(200);
                   expect(res.body[1]).to.deep.include({country_code: "ru"});
                   expect(res.body[1].valid_from).to.equal("2021-06-13T19:00:00.000Z");
                   expect(res.body.length).to.equal(2)
