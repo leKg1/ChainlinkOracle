@@ -8,6 +8,7 @@ contract RequestPrice is ChainlinkClient {
     using Chainlink for Chainlink.Request;
 
     uint256 public price;
+    // uint[] data; 
 
     address private oracle;
     bytes32 private jobId;
@@ -24,7 +25,8 @@ contract RequestPrice is ChainlinkClient {
      * Create a Chainlink request to retrieve API response, find the target
      * data.
      */
-    function requestPriceData() public returns (bytes32 requestId)
+
+        function requestPriceData() public returns (bytes32 requestId)
     {
         Chainlink.Request memory request = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
 
@@ -38,11 +40,24 @@ contract RequestPrice is ChainlinkClient {
         return sendChainlinkRequestTo(oracle, request, fee);
     }
 
+        function requestCovidData() public returns (bytes32 requestId)
+    {
+            Chainlink.Request memory request = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
+
+
+            // Set the URL to perform the GET request on
+            request.add("get", "http://localhost:3000/covidTravel");
+
+            // Sends the request
+            return sendChainlinkRequestTo(oracle, request, fee);
+    }
+
       /**
      * Callback Function
      */
-    function fulfill(bytes32 _requestId, uint256 _price) public recordChainlinkFulfillment(_requestId)
+    function fulfill(bytes32 _requestId) public recordChainlinkFulfillment(_requestId)
     {
-        price = _price;
+
     }
+
 }

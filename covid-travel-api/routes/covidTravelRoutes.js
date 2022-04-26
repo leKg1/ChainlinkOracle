@@ -4,8 +4,9 @@ module.exports = (app) => {
   // covidTravel Routes
   app.route('/covidTravel')
     // .get(covidTravelList.read_a_info)
-    .get(covidTravelList.list_all)
+    .get(covidTravelList.get_filtered_info)
+    // .get(covidTravelList.list_all)
     .post(covidTravelList.create_info)
-    // .delete(covidTravelList.delete);
-  
+    .delete(covidTravelList.remove_all);
+
 };
