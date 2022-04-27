@@ -31,29 +31,30 @@ describe('CovidTravels', () => {
   */
   it('it should POST a covidTravel info and add test data', (done) => {
 
-    //1. delete all entries before adding new
-    //2. add 2 records per country and year
-    //3. write more asserts in the same test. (1 positive and one negative assert per country and year) at least 4 positive asserts + 2 negative
           let covidTravelInfo = [{
               country_code: "ru",
+              pcrTestPrice: 25,
               value: "True",
               valid_from: new Date(2021, 06, 02),
               valid_to: new Date(2021, 08, 04)
           }, 
           {
               country_code: "de",
+              pcrTestPrice: 125,
               value: "True",
               valid_from: new Date(2021, 04, 02),
               valid_to: new Date(2021, 05, 04)
           },
           {
               country_code: "ru",
+              pcrTestPrice: 25,
               value: "True",
               valid_from: new Date(2022, 05, 14),
               valid_to: new Date(2022, 06, 04)
           }, 
           {
               country_code: "de",
+              pcrTestPrice: 125,
               value: "True",
               valid_from: new Date(2022, 07, 03),
               valid_to: new Date(2022, 07, 04)

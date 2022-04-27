@@ -6,6 +6,10 @@ country_code: {
     type: String,
     required: 'Enter country code'
   },
+  
+  pcrTestPrice: {
+    type: Number
+  },
 
 value: {
     type: String,
